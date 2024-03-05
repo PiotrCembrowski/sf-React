@@ -1,0 +1,17 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 2rem auto;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 15%;
+}
+
+.active {
+    color: rgb(27, 63, 223);
+    font-weight: bold;
+}
