@@ -24,7 +24,19 @@ const router = createBrowserRouter([
     path: '/admin',
     element: <AdminLayouts/>,
     children: [
-      { path: '', element: <Admin /> },
+      { 
+        path: '', 
+        element: <Admin />,
+        loader: async () => {
+          const response = await fetch('127.0.0.1:8000/fileslists');
+          if (!response.ok){
+            // ...
+          } else {
+            const resData = await response.json();
+            return resData.lists;
+          }
+        }
+      },
     ]
   }
 ]);

@@ -19,8 +19,7 @@ function Admin() {
 
 
   return (
-    <>
-      <h1>Admin Page</h1>
+    <div className="pl-4">
       <div className="grid grid-flow-col">
         <div>
           <ul>lists;
@@ -33,7 +32,7 @@ function Admin() {
           <Files/>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

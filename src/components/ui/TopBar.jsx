@@ -10,6 +10,7 @@ import {
     BellIcon,
     CheckIcon,
 } from "@heroicons/react/24/solid"
+import logo from './../../assets/blank.png'
 
 function TopBar({ showNav, setShowNav }) {
   return (
@@ -77,7 +78,7 @@ function TopBar({ showNav, setShowNav }) {
                 <div>
                     <Menu.Button className="inline-flex w-full justify-center items-center">
                         <picture>
-                            <img src="#" alt="profile picture" className='rounded-full h-8 mr-8 border-2 border-white shadow-sm' />
+                            <img src={logo} alt="profile picture" className='rounded-full h-8 mr-8 border-2 border-white shadow-sm' />
                         </picture>
                         <span className="font-medium text-gray-700">Piotr C.</span>
                         <ChevronDownIcon className='ml-2 h-4 w-4 text-gray-700'/>
@@ -95,7 +96,22 @@ function TopBar({ showNav, setShowNav }) {
                     <Menu.Items className="absolute roght-0 w-56 z-50 mt-2 origin-top-right bg-white rounded shadow-sm">
                         <div className='p-1'>
                             <Menu.Item>
-                                <NavLink href="#" className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"></NavLink>
+                                <NavLink href="#" className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center">
+                                    <PencilIcon className='h-4 w-4 mr-2' />
+                                    Edit
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <NavLink href="#" className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center">
+                                    <CreditCardIcon className='h-4 w-4 mr-2' />
+                                    Billing
+                                </NavLink>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <NavLink href="#" className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center">
+                                    <Cog8ToothIcon className='h-4 w-4 mr-2' />
+                                    Settings
+                                </NavLink>
                             </Menu.Item>
                         </div>
                     </Menu.Items>

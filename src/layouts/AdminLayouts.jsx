@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom"
 import { Fragment, useState } from "react"
-import AdminNavigation from "./AdminNavigation"
 import SideBar from "../components/ui/SideBar"
 import { Transition } from "@headlessui/react"
 import TopBar from "../components/ui/TopBar"
