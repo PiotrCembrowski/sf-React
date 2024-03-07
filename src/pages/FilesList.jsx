@@ -1,25 +1,32 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
-const FILES = [
-    { id: 'f1', title: 'File1' },
-    { id: 'f2', title: 'File2' },
-    { id: 'f3', title: 'File3' },
-    { id: 'f4', title: 'File4' },
-  ];
-  
-  function FilesList() {
-    return (
-      <>
-        <div>FilesList</div>
-        <ul>
-          { FILES.map(file => (
-            <li key={file.id}>
-              { file.title }
-            </li>
-          )) }
+function FilesList() {
+
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/files')
+    .then(response => {
+      setFiles(response.data.files);
+      console.log(response.data.files)
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }, []);
+
+  return (
+    <>
+      <div>FilesList</div>
+      <ul>files;
+        {files.map(file => (
+          <li key={file.id}>{file.name}<br></br>{file.description}</li>
+        ))}
         </ul>
-      </>
-    )
-  }
-  
-  export default FilesList
+    </>
+  )
+}
+
+export default FilesList
