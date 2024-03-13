@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Files from "./Files";
+import FilesList from "./FilesList";
 import {
   Accordion,
   AccordionContent,
@@ -25,15 +25,13 @@ function Admin() {
 
   const [lists, setLists] = useState([]);
   const [inputValue, setInputValue] = useState('')
-  let listsArray = [];
+  const [listId, setListId] = useState('')
+  const [chosenListName, setChosenListName] = useState('FileList')
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/fileslists')
     .then(response => {
-      const data = response.data.lists;
-      setLists(data);
-
-      data.map(item => listsArray.push(item))
+      setLists(response.data.lists);
     })
     .catch(error => {
       console.log(error);
@@ -78,8 +76,9 @@ function Admin() {
     });
   }
 
-  const showContentHandler = () => {
-    
+  const showContentHandler = (id, name) => {
+    setListId(id)
+    setChosenListName(name)
   }
 
   return (
@@ -95,7 +94,7 @@ function Admin() {
                       <AccordionItem value="item-1">
                         <AccordionTrigger>{list.name}</AccordionTrigger>
                         <AccordionContent>
-                          <button className="border bg-blue-700 text-white px-2 py-1 rounded-xl" onClick={showContentHandler}>Show details</button>
+                          <button className="border bg-blue-700 text-white px-2 py-1 rounded-xl" onClick={()=>showContentHandler(list.id, list.name)}>Show details</button>
                           <button className="border bg-red-700 text-white px-2 py-1 rounded-xl" onClick={() => deleteListHandler(list.id)}>delete</button>
                         </AccordionContent>
                       </AccordionItem>
@@ -122,7 +121,7 @@ function Admin() {
           </AlertDialog>
         </div>
         <div className="px-24 border">
-          {<Files/>}
+          {<FilesList id={listId} listName={chosenListName}/>}
         </div>
       </div>
     </div>
