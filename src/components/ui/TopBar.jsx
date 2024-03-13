@@ -14,7 +14,7 @@ import logo from './../../assets/blank.png'
 
 function TopBar({ showNav, setShowNav }) {
   return (
-    <div className='fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms]'>
+    <div className='fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms] border bg-gray-100/40'>
         <div className='pl-16'>
             <Bars3CenterLeftIcon className='h-8 w-8 text-gray-700 cursor-pointer' onClick={()=>setShowNav(!showNav)}/>
         </div>

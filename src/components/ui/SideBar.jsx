@@ -5,7 +5,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
 
 
     return (
-        <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
+        <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm border bg-gray-100/40">
             <div className="flex justify-center mt-6 mb-14">
 
             </div>

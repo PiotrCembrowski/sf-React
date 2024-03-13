@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import Admin from './pages/Admin';
 import Error from './pages/Error';
 import AdminLayouts from './layouts/AdminLayouts';
+import FilesList from './pages/FilesList';
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,27 @@ const router = createBrowserRouter([
         path: '', 
         element: <Admin />,
         loader: async () => {
-          const response = await fetch('127.0.0.1:8000/fileslists');
-          if (!response.ok){
+          const response = await fetch('http://127.0.0.1:8000/fileslists')
+
+          if (!response.ok) {
             // ...
           } else {
-            const resData = await response.json();
-            return resData.lists;
+            const res = await response.json() 
+            return res.lists
+          }
+        }
+      },
+      {
+        path:'files',
+        element: <FilesList/>,
+        loader: async () => {
+          const respone = await fetch('http://127.0.0.1:8000/files')
+
+          if (!respone.ok) {
+            // ...
+          } else {
+            const res = await respone.json()
+            return res.files
           }
         }
       },

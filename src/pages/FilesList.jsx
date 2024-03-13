@@ -10,7 +10,6 @@ function FilesList() {
     axios.get('http://127.0.0.1:8000/files')
     .then(response => {
       setFiles(response.data.files);
-      console.log(response.data.files)
     })
     .catch(error => {
       console.log(error);
