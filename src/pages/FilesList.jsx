@@ -1,37 +1,52 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { fetchFiles } from "../lib/fetchFiles";
+import LoadingIndicator from './../components/ui/LoadingIndicator';
+import ErrorBlock from "../components/ui/ErrorBlock";
+import NewFile from "./NewFile";
 
 
-function FilesList(id, listName) {
+function FilesList(id) {
+  const { data, isPending, isError, error, refetch } = useQuery({
+    queryKey: ['files'],
+    queryFn: fetchFiles,
+    staleTime: 5000
+  });
 
-  const [files, setFiles] = useState([]);
-  const [renderListName, setRenderListName] = useState('FileList')
+  let content;
+  let addButton;
 
-  // useEffect(() => {
-  //   setRenderListName(ListName)
-  // },[])
+  if(isError) {
+    content = <ErrorBlock/>
+  }
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8000/files')
-    .then(response => {
-      setFiles(response.data.files);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }, []);
+  if(isPending) {
+    content = <LoadingIndicator/>
+  }
 
-  return (
-    <>
-      <div>{renderListName}</div>
+  if(data) {
+    content = (
       <ul>
-        {files.map(file => {
-          console.log(file.list_id)
-          console.log(id.id)
+        {data.map(file => {
           if(file.list_id == id.id) return <li key={file.id}>{file.name}<br/>{file.description}</li>
         }
         )}
-        </ul>
+      </ul>
+    )
+  }
+
+  if(id.id != '') {
+    addButton = (
+      <NewFile pickedListId={id} />
+    )
+  }
+
+  return (
+    <>
+      {/* <div>{listName}</div> */}
+      {content}
+        <div className="py-12">
+          {addButton}
+        </div>
     </>
   )
 }

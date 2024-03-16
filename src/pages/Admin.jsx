@@ -39,8 +39,8 @@ function Admin() {
   }, []);
   
 
-  const deleteListHandler = async (id) => {
-    await fetch(`http://127.0.0.1:8000/fileslists/${id}`, {
+  const deleteListHandler = (id) => {
+    fetch(`http://127.0.0.1:8000/fileslists/${id}`, {
       method: "DELETE",
     })
     axios.get('http://127.0.0.1:8000/fileslists')
@@ -56,7 +56,7 @@ function Admin() {
     setInputValue(event.target.value)
   }
 
-  const addListHandler = async () => {
+  const addListHandler = () => {
     fetch('http://127.0.0.1:8000/fileslists', {
       method: 'POST',
       body: JSON.stringify({
@@ -76,9 +76,8 @@ function Admin() {
     });
   }
 
-  const showContentHandler = (id, name) => {
+  const showContentHandler = (id) => {
     setListId(id)
-    setChosenListName(name)
   }
 
   return (
@@ -94,7 +93,7 @@ function Admin() {
                       <AccordionItem value="item-1">
                         <AccordionTrigger>{list.name}</AccordionTrigger>
                         <AccordionContent>
-                          <button className="border bg-blue-700 text-white px-2 py-1 rounded-xl" onClick={()=>showContentHandler(list.id, list.name)}>Show details</button>
+                          <button className="border bg-blue-700 text-white px-2 py-1 rounded-xl" onClick={()=>showContentHandler(list.id)}>Show details</button>
                           <button className="border bg-red-700 text-white px-2 py-1 rounded-xl" onClick={() => deleteListHandler(list.id)}>delete</button>
                         </AccordionContent>
                       </AccordionItem>
