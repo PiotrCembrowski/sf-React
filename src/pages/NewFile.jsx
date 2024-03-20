@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { uploadFile } from "../lib/uploadFile";
+import { postFile } from "../lib/postFile";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -12,14 +13,23 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "./../components/ui/alert-dialog";
+import ErrorBlock from "../components/ui/ErrorBlock";
+import FileUpload from "../components/form/FileUpload";
 
 function NewFile({pickedListId}) {
     const [FileNameStore, setFileNameStore] = useState('')
     const [FileDescriptionStore, setFileDescriptionStore] = useState('')
+    const [attachment, setAttachment] = useState('')
 
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: uploadFile
+    let content;
+
+    const { mutate: redeemData, isPending, isError, error } = useMutation({
+        mutationFn: postFile
     });
+
+    const { mutate: redeemFile } = useMutation({
+        mutationFn: uploadFile
+    })
 
     const storeFileNameHandler = (event) => {
         setFileNameStore(event.target.value)
@@ -29,12 +39,33 @@ function NewFile({pickedListId}) {
         setFileDescriptionStore(event.target.value)
     }
 
+    const storeFileAttachmentHandler = (event) => {
+        setAttachment(event.target.files[0])
+    }
+
     const addFileHandler = () => {
-        mutate({
-            description: FileDescriptionStore,
-            list_id: pickedListId.id,
-            name: FileNameStore
-        });
+        redeemData({
+            "name": FileNameStore,
+            "description": FileDescriptionStore,
+            "list_id": pickedListId.id
+        })
+
+        redeemFile(
+            attachment
+        )
+    }
+
+    content = <>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={addFileHandler}>Add file</AlertDialogAction>
+            </>
+
+    if(isPending) {
+        return content = <p>Uploading...</p>;
+    }
+
+    if(isError) {
+        return content = <ErrorBlock title="Failed to add file." message={error.info?.message || "Failed to upload your file. Please check your inputs and try again."} />;
     }
     
     return (
@@ -42,24 +73,23 @@ function NewFile({pickedListId}) {
             <AlertDialogTrigger>Add file</AlertDialogTrigger>
             <AlertDialogContent>
             <AlertDialogHeader>
-                <AlertDialogTitle>Set name of the file</AlertDialogTitle>
-                <p>{FileNameStore}</p>
-                <AlertDialogDescription>
-                <input type="text" className="border border-gray-500" required onChange={storeFileNameHandler}/>
-                </AlertDialogDescription>
-                <AlertDialogTitle>Description:</AlertDialogTitle>
-                <AlertDialogDescription>
-                <textarea type="text" className="border border-gray-500 resize-y" required onChange={storeFileDescriptionHandler}/>
-                </AlertDialogDescription>
+                <form>
+                    <AlertDialogTitle>Set name of the file</AlertDialogTitle>
+                    <p>{FileNameStore}</p>
+                    <AlertDialogDescription>
+                    <input type="text" className="border border-gray-500" required onChange={storeFileNameHandler}/>
+                    </AlertDialogDescription>
+                    <AlertDialogTitle>Description:</AlertDialogTitle>
+                    <AlertDialogDescription>
+                    <textarea type="text" className="border border-gray-500 resize-y" required onChange={storeFileDescriptionHandler}/>
+                    </AlertDialogDescription>
+                    <AlertDialogDescription>
+                        <FileUpload attachFile={storeFileAttachmentHandler}/>
+                    </AlertDialogDescription>
+                </form>
             </AlertDialogHeader>
             <AlertDialogFooter>
-                {isPending && 'Uploading...'}
-                {!isPending && (
-                    <>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={addFileHandler}>Add file</AlertDialogAction>
-                    </>
-                )}
+                {content}
             </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

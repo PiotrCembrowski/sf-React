@@ -1,11 +1,11 @@
-export async function uploadFile(attachment){
-    console.log(attachment)
-    const response = await fetch('http://127.0.0.1:8080/files/upload', {
+export async function postFile(file) {
+    const response = await fetch('http://127.0.0.1:8080/files', {
         method: 'POST',
-        body: attachment.target.files[0],
-        credentials: "include"
+        body: JSON.stringify(file),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
-
 
     if (!response.ok) {
         const error = new Error('An error occured while creating the event');

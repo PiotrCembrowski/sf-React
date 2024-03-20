@@ -29,7 +29,7 @@ function Admin() {
   const [chosenListName, setChosenListName] = useState('FileList')
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/fileslists')
+    axios.get('http://127.0.0.1:8080/fileslists')
     .then(response => {
       setLists(response.data.lists);
     })
@@ -40,10 +40,10 @@ function Admin() {
   
 
   const deleteListHandler = (id) => {
-    fetch(`http://127.0.0.1:8000/fileslists/${id}`, {
+    fetch(`http://127.0.0.1:8080/fileslists/${id}`, {
       method: "DELETE",
     })
-    axios.get('http://127.0.0.1:8000/fileslists')
+    axios.get('http://127.0.0.1:8080/fileslists')
     .then(response => {
       setLists(response.data.lists);
     })
@@ -57,7 +57,7 @@ function Admin() {
   }
 
   const addListHandler = () => {
-    fetch('http://127.0.0.1:8000/fileslists', {
+    fetch('http://127.0.0.1:8080/fileslists', {
       method: 'POST',
       body: JSON.stringify({
         name: inputValue
@@ -67,7 +67,7 @@ function Admin() {
       },
     })
       
-    axios.get('http://127.0.0.1:8000/fileslists')
+    axios.get('http://127.0.0.1:8080/fileslists')
     .then(response => {
       setLists(response.data.lists);
     })

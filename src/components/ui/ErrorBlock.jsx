@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-function ErrorBlock() {
+function ErrorBlock(title, message) {
   return (
-    <p>"There is a problem with fetching data."</p>
+    <Fragment>
+      <h3>{title}</h3>
+      <p>{message}</p>
+    </Fragment>
   )
 }
 
