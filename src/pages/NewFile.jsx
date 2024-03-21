@@ -15,6 +15,7 @@ import {
   } from "./../components/ui/alert-dialog";
 import ErrorBlock from "../components/ui/ErrorBlock";
 import FileUpload from "../components/form/FileUpload";
+import { queryClient } from "../lib/query_client";
 
 function NewFile({pickedListId}) {
     const [FileNameStore, setFileNameStore] = useState('')
@@ -24,7 +25,10 @@ function NewFile({pickedListId}) {
     let content;
 
     const { mutate: redeemData, isPending, isError, error } = useMutation({
-        mutationFn: postFile
+        mutationFn: postFile,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['files'] })
+        }
     });
 
     const { mutate: redeemFile } = useMutation({

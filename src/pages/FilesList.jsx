@@ -18,7 +18,6 @@ function FilesList(id) {
     mutationFn: deleteFiles,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['files'] });
-
     }
   })
 
