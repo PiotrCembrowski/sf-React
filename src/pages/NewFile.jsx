@@ -43,16 +43,16 @@ function NewFile({pickedListId}) {
         setAttachment(event.target.files[0])
     }
 
-    const addFileHandler = () => {
+    const addFileHandler = async () => {
+
+        redeemFile(attachment)
+
         redeemData({
             "name": FileNameStore,
             "description": FileDescriptionStore,
             "list_id": pickedListId.id
         })
 
-        redeemFile(
-            attachment
-        )
     }
 
     content = <>
