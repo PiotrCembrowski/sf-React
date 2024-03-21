@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { fetchFiles } from "../lib/fetchFiles";
 import LoadingIndicator from './../components/ui/LoadingIndicator';
 import ErrorBlock from "../components/ui/ErrorBlock";
 import NewFile from "./NewFile";
+import { deleteFiles } from './../lib/deleteFiles'
+import { queryClient } from './../lib/query_client'
 
 
 function FilesList(id) {
@@ -12,10 +14,16 @@ function FilesList(id) {
     staleTime: 500
   });
 
+  const { mutate } = useMutation({
+    mutationFn: deleteFiles,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['files'] });
+
+    }
+  })
+
   const deleteFileHandler = (id) => {
-    fetch(`http://127.0.0.1:8080/files/${id}`, {
-      method: "DELETE",
-    })
+    mutate(id)
   }
 
   let content;

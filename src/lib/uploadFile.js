@@ -1,8 +1,7 @@
 export async function uploadFile(attachment){
 
-    console.log(attachment)
     const formData = new FormData();
-    console.log(formData)
+
     formData.append('file', attachment)
 
     try {

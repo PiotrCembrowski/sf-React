@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
@@ -9,6 +9,7 @@ import Admin from './pages/Admin';
 import Error from './pages/Error';
 import AdminLayouts from './layouts/AdminLayouts';
 import FilesList from './pages/FilesList';
+import { queryClient } from './lib/query_client';
 
 const router = createBrowserRouter([
   {
@@ -57,8 +58,6 @@ const router = createBrowserRouter([
     ]
   }
 ]);
-
-const queryClient = new QueryClient();
 
 function App() {
   return (
