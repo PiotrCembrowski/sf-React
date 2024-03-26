@@ -5,9 +5,10 @@ export async function uploadFile(attachment){
     formData.append('file', attachment)
 
     try {
-        const result = await fetch('http://127.0.0.1:8080/files/upload', {
+        const result = await fetch('http://127.0.0.1:5000/files/upload', {
             method: 'POST',
             body: formData,
+            credentials: 'include',
         });
         const data = await result.json();
         console.log(data)

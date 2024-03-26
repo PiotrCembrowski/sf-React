@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 
 
 function SignUp() {
@@ -71,6 +72,7 @@ function SignUp() {
         type="submit"
       >Create an account</button>
     </div>
+    <NavLink to='http://127.0.0.1:5000/authorize/google'>Sign In with google</NavLink>
   </div>
 </div>
     </>

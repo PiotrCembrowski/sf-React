@@ -1,5 +1,5 @@
-export async function deleteFiles(id) {
-    const response = await fetch(`http://127.0.0.1:5000/files/${id}`, {
+export async function deleteLists(id) {
+    const response = await fetch(`http://127.0.0.1:5000/fileslists/${id}`, {
         method: "DELETE",
         credentials: 'include',
       })
@@ -17,7 +17,7 @@ export async function deleteFiles(id) {
         throw error;
     }
 
-    const { files } = await response.json();
+    const { lists } = await response.json();
 
-    return files;
+    return lists;
 }

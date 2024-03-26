@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import FilesList from "./FilesList";
 import {
   Accordion,
@@ -18,8 +18,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./../components/ui/alert-dialog"
-
 import classes from "./Admin.module.css"
+import { postFilesList } from "../lib/postFilesList";
+import { queryClient } from "../lib/query_client";
+import { fetchLists } from '../lib/fetchLists'
+import { deleteLists } from "../lib/deleteLists";
 
 function Admin() {
 
@@ -27,29 +30,31 @@ function Admin() {
   const [inputValue, setInputValue] = useState('')
   const [listId, setListId] = useState('')
   const [chosenListName, setChosenListName] = useState('FileList')
+  const [user_id, setUser_id] = useState(null)
 
-  useEffect(() => {
-    axios.get('http://127.0.0.1:8080/fileslists')
-    .then(response => {
-      setLists(response.data.lists);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }, []);
+  const { data, isPending, isError, error, refetch } = useQuery({
+    queryKey: ['lists'],
+    queryFn: fetchLists,
+    onSuccess: queryClient.invalidateQueries({queryKey:['lists']})
+  })
+
+  const { mutate: redeemList } = useMutation({
+    mutationFn: postFilesList,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lists'] })
+    }
+  });
+
+  const { mutate: deleteList } = useMutation({
+    mutationFn: deleteLists,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lists'] })
+    }
+  });
+
   
-
   const deleteListHandler = (id) => {
-    fetch(`http://127.0.0.1:8080/fileslists/${id}`, {
-      method: "DELETE",
-    })
-    axios.get('http://127.0.0.1:8080/fileslists')
-    .then(response => {
-      setLists(response.data.lists);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    deleteList(id)
   }
 
   const storeInputDataHandler = (event) => {
@@ -57,23 +62,12 @@ function Admin() {
   }
 
   const addListHandler = () => {
-    fetch('http://127.0.0.1:8080/fileslists', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: inputValue
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
+
+    redeemList({
+      name: inputValue,
+      user_id: user_id,
     })
       
-    axios.get('http://127.0.0.1:8080/fileslists')
-    .then(response => {
-      setLists(response.data.lists);
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 
   const showContentHandler = (id) => {
@@ -86,7 +80,7 @@ function Admin() {
         <div >
           <ul>
             lists;
-            {lists && lists.map((list) => {
+            {data && data.map((list) => {
                 return (
                   <>
                     <Accordion type="single" collapsible key={list.id}>

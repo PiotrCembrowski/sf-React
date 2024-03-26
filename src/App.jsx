@@ -31,7 +31,10 @@ const router = createBrowserRouter([
         path: '', 
         element: <Admin />,
         loader: async () => {
-          const response = await fetch('http://127.0.0.1:8080/fileslists')
+          const response = await fetch('http://127.0.0.1:5000/fileslists', {
+            method: 'GET',
+            credentials: 'include'
+          })
 
           if (!response.ok) {
             // ...
@@ -45,7 +48,10 @@ const router = createBrowserRouter([
         path:'files',
         element: <FilesList/>,
         loader: async () => {
-          const respone = await fetch('http://127.0.0.1:8080/files')
+          const respone = await fetch('http://127.0.0.1:5000/files', {
+            method: 'GET',
+            credentials: 'include'
+          })
 
           if (!respone.ok) {
             // ...

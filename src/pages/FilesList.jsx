@@ -40,7 +40,7 @@ function FilesList(id) {
     content = (
       <ul>
         {data.map(file => {
-          if(file.list_id == id.id) return <li key={file.id}>{file.name}<br/>{file.description}<br/>{file.url}<br/><button className="border bg-red-700 text-white px-2 py-1 rounded-xl" onClick={() => deleteFileHandler(file.id)}>delete</button></li>
+          if(file.list_id == id.id) return <li key={file.id}>{file.name}<br/>{file.description}<br/><button className="border bg-red-700 text-white px-2 py-1 rounded-xl" onClick={() => deleteFileHandler(file.id)}>delete</button></li>
         }
         )}
       </ul>

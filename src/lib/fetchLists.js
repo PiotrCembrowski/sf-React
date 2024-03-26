@@ -1,5 +1,5 @@
-export async function fetchFiles() {
-    const response = await fetch('http://127.0.0.1:5000/files',{
+export async function fetchLists() {
+    const response = await fetch('http://127.0.0.1:5000/fileslists',{
         method: 'GET',
         credentials: 'include',
     });
@@ -11,7 +11,7 @@ export async function fetchFiles() {
         throw error;
     }
 
-    const { files } = await response.json();
+    const { lists } = await response.json();
 
-    return files;
+    return lists;
 }

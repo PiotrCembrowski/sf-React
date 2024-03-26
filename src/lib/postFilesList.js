@@ -1,9 +1,9 @@
-export async function postFile(file) {
-    const response = await fetch('http://127.0.0.1:5000/files', {
+export async function postFilesList(list) {
+    const response = await fetch('http://127.0.0.1:5000/fileslists', {
         method: 'POST',
-        body: JSON.stringify(file),
+        body: JSON.stringify(list),
         headers: {
-            'Content-Type': 'application/json',
+            'Content-type': 'application/json; charset=UTF-8',
         },
         credentials: 'include',
     });
@@ -15,7 +15,7 @@ export async function postFile(file) {
         throw error;
     }
 
-    const { files } = await response.json();
+    const { lists } = await response.json();
 
-    return files;
+    return lists;
 }
