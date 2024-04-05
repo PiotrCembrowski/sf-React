@@ -10,6 +10,8 @@ import Error from './pages/Error';
 import AdminLayouts from './layouts/AdminLayouts';
 import FilesList from './pages/FilesList';
 import { queryClient } from './lib/query_client';
+import { getCookie } from './lib/getCookie';
+import { checkCookie } from './lib/checkCookie';
 
 const router = createBrowserRouter([
   {
@@ -31,8 +33,9 @@ const router = createBrowserRouter([
         path: '', 
         element: <Admin />,
         loader: async () => {
-          const response = await fetch('http://127.0.0.1:5000/fileslists', {
+          const response = await fetch('https://sf-gsbk.onrender.com/fileslists', {
             method: 'GET',
+            mode: 'cors',
             credentials: 'include'
           })
 
@@ -48,7 +51,7 @@ const router = createBrowserRouter([
         path:'files',
         element: <FilesList/>,
         loader: async () => {
-          const respone = await fetch('http://127.0.0.1:5000/files', {
+          const respone = await fetch('https://sf-gsbk.onrender.com/files', {
             method: 'GET',
             credentials: 'include'
           })
@@ -66,6 +69,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  document.cookie = "g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+  // getCookie(oauthstate)
+  checkCookie()
+
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router}/>

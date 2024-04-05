@@ -23,7 +23,7 @@ function MainNavigation() {
           }>Sign Up</NavLink></li>}
           {is_logged_in && <li><NavLink to='admin' className={({ isActive }) => isActive ? classes.active : undefined
           }>Admin</NavLink></li>}
-          {is_logged_in && <li><NavLink to='http://127.0.0.1:8080/logout' className={({ isActive }) => isActive ? classes.active : undefined
+          {is_logged_in && <li><NavLink to='https://sf-gsbk.onrender.com/logout' className={({ isActive }) => isActive ? classes.active : undefined
           }>Sign Out</NavLink></li>}
         </ul>
     </nav>

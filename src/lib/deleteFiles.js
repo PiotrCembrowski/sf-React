@@ -1,5 +1,5 @@
 export async function deleteFiles(id) {
-    const response = await fetch(`http://127.0.0.1:5000/files/${id}`, {
+    const response = await fetch(`https://sf-gsbk.onrender.com/files/${id}`, {
         method: "DELETE",
         credentials: 'include',
       })

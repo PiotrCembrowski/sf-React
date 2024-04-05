@@ -1,5 +1,5 @@
 export async function postFile(file) {
-    const response = await fetch('http://127.0.0.1:5000/files', {
+    const response = await fetch('https://sf-gsbk.onrender.com/files', {
         method: 'POST',
         body: JSON.stringify(file),
         headers: {
