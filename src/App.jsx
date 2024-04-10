@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         path: '', 
         element: <Admin />,
         loader: async () => {
-          const response = await fetch('https://sf-gsbk.onrender.com/fileslists', {
+          const response = await fetch('http://127.0.0.1:5000/fileslists', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include'
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         path:'files',
         element: <FilesList/>,
         loader: async () => {
-          const respone = await fetch('https://sf-gsbk.onrender.com/files', {
+          const respone = await fetch('https://127.0.0.1:5000/files', {
             method: 'GET',
             credentials: 'include'
           })
@@ -72,7 +72,7 @@ function App() {
   document.cookie = "g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
   // getCookie(oauthstate)
-  checkCookie()
+  // checkCookie()
 
 
   return (
