@@ -1,8 +1,7 @@
-import { Fragment, useState, useEffect } from 'react';
+import { useState } from 'react';
 import Select from 'react-select'
 import { useQuery } from "@tanstack/react-query";
 import { fetchFiles } from "./../../lib/fetchFiles";
-import { queryClient } from './../../lib/query_client'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -30,21 +29,23 @@ const { data, isPending, isError, error, refetch } = useQuery({
     queryFn: fetchFiles,
 });
 
-let content;
+let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
 let options = [];
 data.map(option => options.push({value:option.id, label:option.name}))
 
+const addToList = (e) => {
+    for(let i = 0; i < list.length; i++) {
+        if(list[i].name == e.label) {
+            return alert('This file was already added.')
+        }
+    }
 
-const addToList = async (e) => {
-    await setList([
+    setList([
         ...list,
         { id: ++listId, name: e.label}
     ])
 }
 
-const renderingList = () => {
-    return content = list.map((file) => { return <p key={file.id}>{file.name}</p> })
-}
 
 if(isPending) {
     content = <LoadingIndicator/>
@@ -64,11 +65,12 @@ if(isError) {
             <AlertDialogHeader>
             <AlertDialogTitle>Create a new View with files</AlertDialogTitle>
             <AlertDialogDescription>
-                Share files with your employees or friends!
+                Pick files from the list.
             </AlertDialogDescription>
-            {content}
+            <ul>
+                {content}
+            </ul>
             <Select options={options} onChange={(e)=>addToList(e)} />
-            <button type="button" onClick={renderingList}>add file</button>
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
