@@ -16,12 +16,12 @@ import {
 import { Button } from './button'
 import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
+import SharePage from './../../pages/SharePage'
 
 let listId = 0;
 
 function View() {
 
-const [viewFile, setViewFile] = useState('')
 const [list, setList] = useState([])
 
 const { data, isPending, isError, error, refetch } = useQuery({
@@ -71,6 +71,9 @@ if(isError) {
                 {content}
             </ul>
             <Select options={options} onChange={(e)=>addToList(e)} />
+            <label htmlFor="password">Password for access to shared files:</label>
+            <input type="password" name='password' className='border-2' />
+            <SharePage list={list} />
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
