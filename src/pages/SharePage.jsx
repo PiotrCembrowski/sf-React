@@ -1,8 +1,9 @@
 import { Fragment } from 'react'
 
-function SharePage(list) {
+function SharePage(list, password) {
   return (
     <Fragment>
+      {console.log(password)}
       {console.log(list)}
     </Fragment>
   )

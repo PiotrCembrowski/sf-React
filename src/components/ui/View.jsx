@@ -23,6 +23,7 @@ let listId = 0;
 function View() {
 
 const [list, setList] = useState([])
+const [password, setPassword] = useState('')
 
 const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['files'],
@@ -46,10 +47,14 @@ const addToList = (e) => {
     ])
 }
 
+const addPasswordToSharePage = (e) => {
+    setPassword(e.target.value)
+}
+
 const pushFiles = () => {
     setSharedFiles(list);
 
-    <SharePage list={list} />
+    <SharePage list={list} password={password} />
 }
 
 
@@ -77,8 +82,9 @@ if(isError) {
                 {content}
             </ul>
             <Select options={options} onChange={(e)=>addToList(e)} />
-            <label htmlFor="password">Password for access to shared files:</label>
-            <input type="password" name='password' className='border-2' />
+            <label htmlFor="password" >Password for access to shared files:</label>
+            <input type="password" name='password' className='border-2' onChange={(e) => addPasswordToSharePage(e)} />
+            {/* <SharePage list={list} password={password} /> */}
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
