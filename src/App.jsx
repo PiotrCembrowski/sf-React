@@ -47,23 +47,23 @@ const router = createBrowserRouter([
           }
         }
       },
-      {
-        path:'files',
-        element: <FilesList/>,
-        loader: async () => {
-          const respone = await fetch('https://127.0.0.1:5000/files', {
-            method: 'GET',
-            credentials: 'include'
-          })
+      // {
+      //   path:'files',
+      //   element: <FilesList/>,
+      //   loader: async () => {
+      //     const respone = await fetch('https://127.0.0.1:5000/files', {
+      //       method: 'GET',
+      //       credentials: 'include'
+      //     })
 
-          if (!respone.ok) {
-            // ...
-          } else {
-            const res = await respone.json()
-            return res.files
-          }
-        }
-      },
+      //     if (!respone.ok) {
+      //       // ...
+      //     } else {
+      //       const res = await respone.json()
+      //       return res.files
+      //     }
+      //   }
+      // },
     ]
   }
 ]);
