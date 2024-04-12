@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:':viewId',
+    path:':sharePageId',
     id: 'share-page',
     element: <SharePage/>,
   },

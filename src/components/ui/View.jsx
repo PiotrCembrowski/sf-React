@@ -17,6 +17,7 @@ import { Button } from './button'
 import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
+import { NavLink } from 'react-router-dom';
 
 let listId = 0;
 
@@ -84,11 +85,12 @@ if(isError) {
             <Select options={options} onChange={(e)=>addToList(e)} />
             <label htmlFor="password" >Password for access to shared files:</label>
             <input type="password" name='password' className='border-2' onChange={(e) => addPasswordToSharePage(e)} />
-            {/* <SharePage list={list} password={password} /> */}
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={pushFiles}>Share</AlertDialogAction>
+            <NavLink>
+                <AlertDialogAction onClick={pushFiles} to='sharePageId' >Share</AlertDialogAction>
+            </NavLink>
             </AlertDialogFooter>
         </AlertDialogContent>
         </AlertDialog>
