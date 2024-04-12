@@ -8,10 +8,10 @@ import SignIn from './pages/SignIn';
 import Admin from './pages/Admin';
 import Error from './pages/Error';
 import AdminLayouts from './layouts/AdminLayouts';
-import FilesList from './pages/FilesList';
 import { queryClient } from './lib/query_client';
 import { getCookie } from './lib/getCookie';
 import { checkCookie } from './lib/checkCookie';
+import SharePage from './pages/SharePage';
 
 const router = createBrowserRouter([
   {
@@ -47,25 +47,13 @@ const router = createBrowserRouter([
           }
         }
       },
-      // {
-      //   path:'files',
-      //   element: <FilesList/>,
-      //   loader: async () => {
-      //     const respone = await fetch('https://127.0.0.1:5000/files', {
-      //       method: 'GET',
-      //       credentials: 'include'
-      //     })
-
-      //     if (!respone.ok) {
-      //       // ...
-      //     } else {
-      //       const res = await respone.json()
-      //       return res.files
-      //     }
-      //   }
-      // },
     ]
-  }
+  },
+  {
+    path:':viewId',
+    id: 'share-page',
+    element: <SharePage/>,
+  },
 ]);
 
 function App() {

@@ -39,11 +39,17 @@ const addToList = (e) => {
             return alert('This file was already added.')
         }
     }
-
+    
     setList([
         ...list,
-        { id: ++listId, name: e.label}
+        { id: e.value, name: e.label}
     ])
+}
+
+const pushFiles = () => {
+    setSharedFiles(list);
+
+    <SharePage list={list} />
 }
 
 
@@ -73,11 +79,10 @@ if(isError) {
             <Select options={options} onChange={(e)=>addToList(e)} />
             <label htmlFor="password">Password for access to shared files:</label>
             <input type="password" name='password' className='border-2' />
-            <SharePage list={list} />
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Share</AlertDialogAction>
+            <AlertDialogAction onClick={pushFiles}>Share</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
         </AlertDialog>
