@@ -17,7 +17,7 @@ import { Button } from './button'
 import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect } from 'react-router-dom';
 
 let listId = 0;
 
@@ -53,9 +53,8 @@ const addPasswordToSharePage = (e) => {
 }
 
 const pushFiles = () => {
-    setSharedFiles(list);
-
     <SharePage list={list} password={password} />
+    return redirect('/SharePage')
 }
 
 
@@ -88,8 +87,8 @@ if(isError) {
             </AlertDialogHeader>
             <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <NavLink>
-                <AlertDialogAction onClick={pushFiles} to='sharePageId' >Share</AlertDialogAction>
+            <NavLink to='/sharePageId' >
+                <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
             </NavLink>
             </AlertDialogFooter>
         </AlertDialogContent>
