@@ -23,78 +23,77 @@ let listId = 0;
 
 function View() {
 
-const [list, setList] = useState([])
-const [password, setPassword] = useState('')
+    const [list, setList] = useState([])
+    const [password, setPassword] = useState('')
 
-const { data, isPending, isError, error, refetch } = useQuery({
-    queryKey: ['files'],
-    queryFn: fetchFiles,
-});
+    const { data, isPending, isError, error, refetch } = useQuery({
+        queryKey: ['files'],
+        queryFn: fetchFiles,
+    });
 
-let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
-let options = [];
-data.map(option => options.push({value:option.id, label:option.name}))
+    let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
+    let options = [];
+    data.map(option => options.push({value:option.id, label:option.name}))
 
-const addToList = (e) => {
-    for(let i = 0; i < list.length; i++) {
-        if(list[i].name == e.label) {
-            return alert('This file was already added.')
+    const addToList = (e) => {
+        for(let i = 0; i < list.length; i++) {
+            if(list[i].name == e.label) {
+                return alert('This file was already added.')
+            }
         }
+        
+        setList([
+            ...list,
+            { id: e.value, name: e.label}
+        ])
     }
-    
-    setList([
-        ...list,
-        { id: e.value, name: e.label}
-    ])
-}
 
-const addPasswordToSharePage = (e) => {
-    setPassword(e.target.value)
-}
+    const addPasswordToSharePage = (e) => {
+        setPassword(e.target.value)
+    }
 
-const pushFiles = () => {
-    <SharePage list={list} password={password} />
-    return redirect('/SharePage')
-}
+    const pushFiles = () => {
+        return redirect('/SharePage')
+    }
 
+    if(isPending) {
+        content = <LoadingIndicator/>
+    }
 
-if(isPending) {
-    content = <LoadingIndicator/>
-}
+    if(isError) {
+        content = <ErrorBlock title="Failed to fetch the files." message={error.info?.message || "Failed to fetch your data. Please try again later."} />
+    }
 
-if(isError) {
-    content = <ErrorBlock title="Failed to fetch the files." message={error.info?.message || "Failed to fetch your data. Please try again later."} />
-  }
-
-  return (
-    <div className="my-2">
-        <AlertDialog>
-        <AlertDialogTrigger asChild>
-            <Button variant="outline">Share</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-            <AlertDialogHeader>
-            <AlertDialogTitle>Create a new View with files</AlertDialogTitle>
-            <AlertDialogDescription>
-                Pick files from the list.
-            </AlertDialogDescription>
-            <ul>
-                {content}
-            </ul>
-            <Select options={options} onChange={(e)=>addToList(e)} />
-            <label htmlFor="password" >Password for access to shared files:</label>
-            <input type="password" name='password' className='border-2' onChange={(e) => addPasswordToSharePage(e)} />
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <NavLink to='/sharePageId' >
-                <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
-            </NavLink>
-            </AlertDialogFooter>
-        </AlertDialogContent>
-        </AlertDialog>
-    </div>
-  )
+    return (
+        <div className="my-2">
+            <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="outline">Share</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                <AlertDialogTitle>Create a new View with files</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Pick files from the list.
+                </AlertDialogDescription>
+                <ul>
+                    {content}
+                </ul>
+                <Select options={options} onChange={(e)=>addToList(e)} />
+                <label htmlFor="password" >Password for access to shared files:</label>
+                <input type="password" name='password' className='border-2' onChange={(e) => addPasswordToSharePage(e)} />
+                <SharePage list={list} password={password} />
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <NavLink to='/sharePageId' >
+                    <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
+                </NavLink>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+            </AlertDialog>
+        </div>
+    )
 }
 
 export default View
