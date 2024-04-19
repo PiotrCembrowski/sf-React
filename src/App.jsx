@@ -9,8 +9,6 @@ import Admin from './pages/Admin';
 import Error from './pages/Error';
 import AdminLayouts from './layouts/AdminLayouts';
 import { queryClient } from './lib/query_client';
-import { getCookie } from './lib/getCookie';
-import { checkCookie } from './lib/checkCookie';
 import SharePage from './pages/SharePage';
 
 const router = createBrowserRouter([
