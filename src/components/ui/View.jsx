@@ -54,7 +54,7 @@ function View() {
     }
 
     const pushFiles = () => {
-        return redirect('/SharePage')
+        return redirect(`/${uuid}`)
     }
 
     if(isPending) {
@@ -87,7 +87,7 @@ function View() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <NavLink to={uuid} >
+                <NavLink to={`/${uuid}`} >
                     <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
                 </NavLink>
                 </AlertDialogFooter>

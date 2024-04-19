@@ -1,7 +1,9 @@
 import { Fragment } from 'react'
+import { useParams } from 'react-router-dom'
 
 
 function SharePage(list, password) {
+  const params = useParams();
   
   // async function fetchViews() {
   //   const response = await fetch(`http://127.0.0.1:5000/files/${list}`,{
@@ -23,9 +25,9 @@ function SharePage(list, password) {
 
   return (
     <Fragment>
-      <h1>Welcome</h1>
+      <h1>page params:{params.sharePageId}</h1>
       
-      {console.log(list)}
+
     </Fragment>
   )
 }
