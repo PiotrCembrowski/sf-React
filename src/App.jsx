@@ -59,9 +59,6 @@ const router = createBrowserRouter([
 function App() {
   document.cookie = "g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-  // getCookie(oauthstate)
-  // checkCookie()
-
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -20,6 +20,7 @@ import SharePage from './../../pages/SharePage'
 import { NavLink, redirect } from 'react-router-dom';
 
 let listId = 0;
+let uuid = crypto.randomUUID();
 
 function View() {
 
@@ -86,7 +87,7 @@ function View() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <NavLink to='/sharePageId' >
+                <NavLink to={uuid} >
                     <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
                 </NavLink>
                 </AlertDialogFooter>
