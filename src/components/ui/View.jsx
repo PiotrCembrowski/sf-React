@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select'
 import { useQuery } from "@tanstack/react-query";
 import { fetchFiles } from "./../../lib/fetchFiles";
@@ -20,21 +20,27 @@ import SharePage from './../../pages/SharePage'
 import { NavLink, redirect } from 'react-router-dom';
 
 let listId = 0;
-let link;
 let uuid = crypto.randomUUID();
 
 function View() {
 
     const [list, setList] = useState([])
+    const [link, setLink] = useState('Link to share')
 
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ['files'],
         queryFn: fetchFiles,
     });
 
+
+
     let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
     let options = [];
     data.map(option => options.push({value:option.id, label:option.name}))
+
+    useEffect(() => {
+        console.log(link)
+    }, [link]);
 
     const addToList = (e) => {
         for(let i = 0; i < list.length; i++) {
@@ -47,11 +53,14 @@ function View() {
             ...list,
             { id: e.value, name: e.label}
         ])
+
+        const url = `localhost:5173/${uuid}`;
+
+        setLink(url)
     }
 
     const pushFiles = (event) => {
         <SharePage list={list} />
-        link = <NavLink to={`localhost:5173/${uuid}`}></NavLink>
         // return redirect(`/${uuid}`)
     }
 
@@ -85,6 +94,8 @@ function View() {
                 {!link && <AlertDialogAction onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
                 {link && <AlertDialogAction disabled onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
                 </AlertDialogFooter>
+                <br/>
+                <NavLink to={link}>{link}</NavLink>
             </AlertDialogContent>
             </AlertDialog>
         </div>
