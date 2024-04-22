@@ -18,9 +18,13 @@ import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
 import { NavLink, redirect } from 'react-router-dom';
+import { hashing_string } from './../../utils/hashing_string'
+
 
 let listId = 0;
 let uuid = crypto.randomUUID();
+
+console.log(hashing_string(uuid));
 
 function View() {
 
