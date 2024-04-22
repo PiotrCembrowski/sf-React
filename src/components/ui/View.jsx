@@ -18,18 +18,17 @@ import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
 import { NavLink, redirect } from 'react-router-dom';
-import { hashing_string } from './../../utils/hashing_string'
 
 
 let listId = 0;
-let uuid = crypto.randomUUID();
-
-console.log(hashing_string(uuid));
 
 function View() {
 
     const [list, setList] = useState([])
     const [link, setLink] = useState('Link to share')
+    let uuid = crypto.randomUUID();
+    
+    let share_button = <AlertDialogAction onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>;
 
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ['files'],
@@ -43,7 +42,7 @@ function View() {
     data.map(option => options.push({value:option.id, label:option.name}))
 
     useEffect(() => {
-        console.log(link)
+        share_button = <AlertDialogAction disabled onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>
     }, [link]);
 
     const addToList = (e) => {
@@ -58,14 +57,13 @@ function View() {
             { id: e.value, name: e.label}
         ])
 
-        const url = `localhost:5173/${uuid}`;
+        const url = `http://localhost:5173/${uuid}`;
 
         setLink(url)
     }
 
     const pushFiles = (event) => {
         <SharePage list={list} />
-        // return redirect(`/${uuid}`)
     }
 
     if(isPending) {
@@ -95,11 +93,10 @@ function View() {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                {!link && <AlertDialogAction onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
-                {link && <AlertDialogAction disabled onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
+                {share_button}
                 </AlertDialogFooter>
                 <br/>
-                <NavLink to={link}>{link}</NavLink>
+                <NavLink to={link} target="_blank" rel="noopener noreferrer" >{link}</NavLink>
             </AlertDialogContent>
             </AlertDialog>
         </div>
