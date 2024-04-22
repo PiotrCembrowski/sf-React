@@ -20,12 +20,12 @@ import SharePage from './../../pages/SharePage'
 import { NavLink, redirect } from 'react-router-dom';
 
 let listId = 0;
+let link;
 let uuid = crypto.randomUUID();
 
 function View() {
 
     const [list, setList] = useState([])
-    const [password, setPassword] = useState('')
 
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ['files'],
@@ -49,12 +49,10 @@ function View() {
         ])
     }
 
-    const addPasswordToSharePage = (e) => {
-        setPassword(e.target.value)
-    }
-
-    const pushFiles = () => {
-        return redirect(`/${uuid}`)
+    const pushFiles = (event) => {
+        <SharePage list={list} />
+        link = <NavLink to={`localhost:5173/${uuid}`}></NavLink>
+        // return redirect(`/${uuid}`)
     }
 
     if(isPending) {
@@ -81,15 +79,11 @@ function View() {
                     {content}
                 </ul>
                 <Select options={options} onChange={(e)=>addToList(e)} />
-                <label htmlFor="password" >Password for access to shared files:</label>
-                <input type="password" name='password' className='border-2' onChange={(e) => addPasswordToSharePage(e)} />
-                <SharePage list={list} password={password} />
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <NavLink to={`/${uuid}`} >
-                    <AlertDialogAction onClick={pushFiles}  >Share</AlertDialogAction>
-                </NavLink>
+                {!link && <AlertDialogAction onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
+                {link && <AlertDialogAction disabled onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>}
                 </AlertDialogFooter>
             </AlertDialogContent>
             </AlertDialog>
