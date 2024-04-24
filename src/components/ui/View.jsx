@@ -17,7 +17,7 @@ import { Button } from './button'
 import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
-import { NavLink, redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 let listId = 0;

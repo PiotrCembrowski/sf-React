@@ -2,15 +2,28 @@ import { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import pdfIcon from './../assets/pdf.png'
 import { fetchView } from "./../lib/fetchView";
+import { useMutation } from '@tanstack/react-query';
 
-function SharePage() {
+function SharePage(list) {
   const { sharePageId } = useParams();
 
   const [ files, setFiles ] = useState([]);
 
+  const { mutate } = useMutation({
+    mutationFn: fetchView,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['view'] });
+    }
+  })
+
+  mutate({
+    id: sharePageId,
+    files: files,
+  })
+
   const { data, isPending, isError, error, refetch} = useQuery({
     queryKey: ['view'],
-    queryFn: fetchView,
+    queryFn: fetchView(sharePageId),
   });
   
   return (
