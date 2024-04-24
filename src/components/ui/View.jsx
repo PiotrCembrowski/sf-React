@@ -27,8 +27,12 @@ function View() {
     const [list, setList] = useState([])
     const [link, setLink] = useState('Link to share')
     let uuid = crypto.randomUUID();
+
+    const pushFiles = (event) => {
+        <SharePage list={list} />
+    }
     
-    let share_button = <AlertDialogAction onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>;
+    let share_button = <AlertDialogAction onClick={pushFiles()}  >Share</AlertDialogAction>;
 
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ['files'],
@@ -36,13 +40,12 @@ function View() {
     });
 
 
-
     let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
     let options = [];
     data.map(option => options.push({value:option.id, label:option.name}))
 
     useEffect(() => {
-        share_button = <AlertDialogAction disabled onClick={(event)=>pushFiles(event)}  >Share</AlertDialogAction>
+        share_button = <AlertDialogAction disabled onClick={pushFiles()}  >Share</AlertDialogAction>
     }, [link]);
 
     const addToList = (e) => {
@@ -60,10 +63,6 @@ function View() {
         const url = `http://localhost:5173/${uuid}`;
 
         setLink(url)
-    }
-
-    const pushFiles = (event) => {
-        <SharePage list={list} />
     }
 
     if(isPending) {

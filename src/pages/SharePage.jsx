@@ -1,36 +1,17 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import pdfIcon from './../assets/pdf.png'
-import File from './../components/ui/File'
+import { fetchView } from "./../lib/fetchView";
 
 function SharePage() {
   const { sharePageId } = useParams();
 
   const [ files, setFiles ] = useState([]);
 
-  useEffect(()=>{
-    async function fetchViews() {
-      const response = await fetch(`http://127.0.0.1:5000/files`,{
-          method: 'GET',
-          credentials: 'include',
-      });
-  
-      if (!response.ok) {
-          const error = new Error('An error occured while fetching the events.');
-          error.code = response.status;
-          error.info = await response.json();
-          throw error;
-      }
-  
-      const { files } = await response.json();
-      return setFiles(files);
-    }
-    fetchViews()
-  },[])
-
-  let content = files.map((file) => {
-    <File key={file.id} name={file.name} description={file.description} />
-  })
+  const { data, isPending, isError, error, refetch} = useQuery({
+    queryKey: ['view'],
+    queryFn: fetchView,
+  });
   
   return (
     <Fragment>
