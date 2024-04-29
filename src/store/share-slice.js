@@ -8,10 +8,7 @@ const share_slice = createSlice({
     reducers: {
         push_file(state, action) {
             const file = action.payload;
-            state.files_array.push({ 
-                id: file.id, 
-                name: file.name 
-            })
+            state.files_array.push(file)
         }
     }
 });

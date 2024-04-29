@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 function SharePage(list) {
   const { sharePageId } = useParams();
-  useSelector(state => state.share.files_array);
+  const shared_files = useSelector(state => state.share.files_array);
+  console.log(shared_files)
 
   const [ files, setFiles ] = useState([]);
 

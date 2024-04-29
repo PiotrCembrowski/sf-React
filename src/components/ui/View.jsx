@@ -19,7 +19,7 @@ import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
 import { NavLink } from 'react-router-dom';
 import { share_actions } from '../../store/share-slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 let listId = 0;
@@ -58,16 +58,13 @@ function View() {
             }
         }
         
-        setList([
-            ...list,
-            { id: e.value, name: e.label}
-        ])
-
-        dispatch(share_actions.push_file());
+        setList(prevState => ([...prevState, { id: e.value, name: e.label}]))
 
         const url = `http://localhost:5173/${uuid}`;
 
         setLink(url)
+
+        dispatch(share_actions.push_file(list));
     }
 
     if(isPending) {
