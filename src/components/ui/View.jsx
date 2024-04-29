@@ -18,6 +18,8 @@ import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import SharePage from './../../pages/SharePage'
 import { NavLink } from 'react-router-dom';
+import { share_actions } from '../../store/share-slice';
+import { useDispatch } from 'react-redux';
 
 
 let listId = 0;
@@ -27,6 +29,7 @@ function View() {
     const [list, setList] = useState([])
     const [link, setLink] = useState('Link to share')
     let uuid = crypto.randomUUID();
+    const dispatch = useDispatch();
 
     const pushFiles = (event) => {
         <SharePage list={list} />
@@ -59,6 +62,8 @@ function View() {
             ...list,
             { id: e.value, name: e.label}
         ])
+
+        dispatch(share_actions.push_file());
 
         const url = `http://localhost:5173/${uuid}`;
 

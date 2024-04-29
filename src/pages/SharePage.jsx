@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom'
 import pdfIcon from './../assets/pdf.png'
 import { fetchView } from "./../lib/fetchView";
 import { useMutation } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 
 function SharePage(list) {
   const { sharePageId } = useParams();
+  useSelector(state => state.share.files_array);
 
   const [ files, setFiles ] = useState([]);
 
