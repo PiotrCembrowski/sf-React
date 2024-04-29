@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select'
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { fetchFiles } from "./../../lib/fetchFiles";
 import {
     AlertDialog,
@@ -20,6 +20,8 @@ import SharePage from './../../pages/SharePage'
 import { NavLink } from 'react-router-dom';
 import { share_actions } from '../../store/share-slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchView } from '../../lib/fetchView';
+import { queryClient } from '../../lib/query_client';
 
 
 let listId = 0;
@@ -42,6 +44,10 @@ function View() {
         queryFn: fetchFiles,
     });
 
+    const { mutate } = useMutation({
+        mutationFn: fetchView,
+        onSuccess: queryClient.invalidateQueries({ queryKey: ['view'] })
+    })
 
     let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });
     let options = [];
@@ -65,6 +71,8 @@ function View() {
         setLink(url)
 
         dispatch(share_actions.push_file(list));
+
+        mutate(uuid, list)
     }
 
     if(isPending) {
