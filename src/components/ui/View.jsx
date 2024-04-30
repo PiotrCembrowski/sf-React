@@ -16,10 +16,7 @@ import {
 import { Button } from './button'
 import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
-import SharePage from './../../pages/SharePage'
 import { NavLink } from 'react-router-dom';
-import { share_actions } from '../../store/share-slice';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchView } from '../../lib/fetchView';
 import { queryClient } from '../../lib/query_client';
 
@@ -30,21 +27,16 @@ function View() {
 
     const [list, setList] = useState([])
     const [link, setLink] = useState('Link to share')
-    let uuid = crypto.randomUUID();
-    const dispatch = useDispatch();
-
-    const pushFiles = (event) => {
-        <SharePage list={list} />
-    }
+    const [viewId, setViewId] = useState('')
     
-    let share_button = <AlertDialogAction onClick={pushFiles()}  >Share</AlertDialogAction>;
+    let share_button = <AlertDialogAction>Share</AlertDialogAction>;
 
     const { data, isPending, isError, error, refetch } = useQuery({
         queryKey: ['files'],
         queryFn: fetchFiles,
     });
 
-    const { mutate } = useMutation({
+    const { data: fetchedView, mutate } = useMutation({
         mutationFn: fetchView,
         onSuccess: queryClient.invalidateQueries({ queryKey: ['view'] })
     })
@@ -54,7 +46,7 @@ function View() {
     data.map(option => options.push({value:option.id, label:option.name}))
 
     useEffect(() => {
-        share_button = <AlertDialogAction disabled onClick={pushFiles()}  >Share</AlertDialogAction>
+        share_button = <AlertDialogAction disabled >Share</AlertDialogAction>
     }, [link]);
 
     const addToList = (e) => {
@@ -65,15 +57,18 @@ function View() {
         }
         
         setList(prevState => ([...prevState, { id: e.value, name: e.label}]))
-
+        const uuid = crypto.randomUUID();
         const url = `http://localhost:5173/${uuid}`;
 
         setLink(url)
-
-        dispatch(share_actions.push_file(list));
-
-        mutate(uuid, list)
+        setViewId(uuid)
     }
+
+    useEffect(() => {
+        const blob = []
+        blob.push(viewId, list)
+        mutate(blob)
+    }, [viewId, list])
 
     if(isPending) {
         content = <LoadingIndicator/>
@@ -82,6 +77,8 @@ function View() {
     if(isError) {
         content = <ErrorBlock title="Failed to fetch the files." message={error.info?.message || "Failed to fetch your data. Please try again later."} />
     }
+
+    console.log(fetchedView)
 
     return (
         <div className="my-2">
