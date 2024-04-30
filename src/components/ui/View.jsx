@@ -18,7 +18,7 @@ import ErrorBlock from "./ErrorBlock";
 import LoadingIndicator from './LoadingIndicator'
 import { NavLink } from 'react-router-dom';
 import { fetchView } from '../../lib/fetchView';
-import { queryClient } from '../../lib/query_client';
+import { resultView } from '../../lib/resultView';
 
 
 let listId = 0;
@@ -38,7 +38,7 @@ function View() {
 
     const { data: fetchedView, mutate } = useMutation({
         mutationFn: fetchView,
-        onSuccess: queryClient.invalidateQueries({ queryKey: ['view'] })
+        onSuccess: resultView
     })
 
     let content = list.map((file) => { return <li key={file.id}>{file.name}</li> });

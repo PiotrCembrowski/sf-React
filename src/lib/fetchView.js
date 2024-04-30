@@ -17,6 +17,6 @@ export async function fetchView(data) {
     }
 
     const { view } = await response.json();
-
+    
     return view;
 }
