@@ -49,6 +49,13 @@ function View() {
         share_button = <AlertDialogAction disabled >Share</AlertDialogAction>
     }, [link]);
 
+    const stripString = (string) => {
+        console.log(string)
+        const newString = string.replace(/[0-9]/g, "")
+        const updatedString = newString.replace(/-/g, "")
+        return updatedString
+    }
+
     const addToList = (e) => {
         for(let i = 0; i < list.length; i++) {
             if(list[i].name == e.label) {
@@ -58,7 +65,8 @@ function View() {
         
         setList(prevState => ([...prevState, { id: e.value, name: e.label}]))
         const uuid = crypto.randomUUID();
-        const url = `http://localhost:5173/${uuid}`;
+        const urlPath = stripString(uuid)
+        const url = `http://127.0.0.1:5000/views/${urlPath}.html`;
 
         setLink(url)
         setViewId(uuid)
@@ -77,8 +85,6 @@ function View() {
     if(isError) {
         content = <ErrorBlock title="Failed to fetch the files." message={error.info?.message || "Failed to fetch your data. Please try again later."} />
     }
-
-    console.log(fetchedView)
 
     return (
         <div className="my-2">

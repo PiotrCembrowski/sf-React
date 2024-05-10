@@ -1,6 +1,6 @@
 export async function fetchView(data) {
     const [id, files] = data;
-    const response = await fetch(`http://127.0.0.1:5000/view/${id}`,{
+    const response = await fetch(`http://127.0.0.1:5000/views/${id}`,{
         method: 'POST',
         body: JSON.stringify(files),
         headers: {
