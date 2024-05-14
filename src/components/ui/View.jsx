@@ -43,7 +43,7 @@ function View() {
   const sendFiles = () => {
     const uuid = crypto.randomUUID();
     const urlPath = stripString(uuid);
-    const url = `http://127.0.0.1:5000/views/${urlPath}.html`;
+    const url = `http://127.0.0.1:5000/views/${urlPath}`;
     setLink(url);
     const blob = [uuid, list];
 
