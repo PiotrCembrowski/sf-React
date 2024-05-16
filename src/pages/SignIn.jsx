@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 function SignIn() {
-
-
   return (
     <>
       <div
@@ -15,7 +13,7 @@ function SignIn() {
           </h3>
         </div>
         <div className="p-6">
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <div className="space-y-2">
               <label
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -50,8 +48,10 @@ function SignIn() {
             >
               Submit
             </button>
-          </div>
-          <NavLink to='https://sf-gsbk.onrender.com/authorize/google'>Sign In with google</NavLink>
+          </div> */}
+          <NavLink to="http://127.0.0.1:5000/authorize/google">
+            Sign In with google
+          </NavLink>
         </div>
       </div>
     </>
