@@ -11,7 +11,7 @@ export async function check_user() {
     throw error;
   }
 
-  const { user } = await response.json();
-  console.log(user);
-  return user;
+  const { userInfo } = await response.json();
+
+  return userInfo;
 }

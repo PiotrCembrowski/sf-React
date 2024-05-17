@@ -1,15 +1,14 @@
 import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { useState } from "react";
-import { check_user } from "../utils/get_logged_in_user";
-import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function MainNavigation() {
   const [is_logged_in, setIs_logged_in] = useState(false);
 
-  const { data, isPending, error, isError, refetch } = useQuery({
-    queryKey: ["nav"],
-    queryFn: check_user,
+  axios.get(`http://127.0.0.1:5000/api/user_log`).then((res) => {
+    const persons = res.data;
+    setIs_logged_in(persons.userInfo);
   });
 
   return (
