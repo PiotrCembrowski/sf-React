@@ -48,7 +48,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: ":sharePageId",
+    path: "sharePageId",
     id: "share-page",
     element: <SharePage />,
   },

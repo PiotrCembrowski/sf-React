@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function MainNavigation() {
-  const [is_logged_in, setIs_logged_in] = useState(false);
+  const [is_logged_in, setIs_logged_in] = useState("");
 
-  axios.get(`http://127.0.0.1:5000/api/user_log`).then((res) => {
-    const persons = res.data;
-    setIs_logged_in(persons.userInfo);
-  });
+  // useEffect(() => {
+  //   axios.get(`http://127.0.0.1:5000/api/user_log`).then((res) => {
+  //     const persons = res.data;
+  //     setIs_logged_in(persons);
+  //   });
+  // }, [is_logged_in]);
 
   return (
     <nav>
@@ -77,10 +79,13 @@ function MainNavigation() {
         {is_logged_in && (
           <li>
             <NavLink
-              to="https://sf-gsbk.onrender.com/logout"
+              to="http://127.0.0.1:5000/logout"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
+              onClick={() => {
+                setIs_logged_in("");
+              }}
             >
               Sign Out
             </NavLink>
