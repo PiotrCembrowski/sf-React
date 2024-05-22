@@ -86,14 +86,14 @@ function MainNavigation() {
         )}
         {is_logged_in && (
           <li>
-            <NavLink
-              to="http://127.0.0.1:5000/logout"
+            <a
+              href="http://127.0.0.1:5000/logout"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
             >
               Sign Out
-            </NavLink>
+            </a>
           </li>
         )}
       </ul>

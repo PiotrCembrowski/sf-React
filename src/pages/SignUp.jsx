@@ -80,9 +80,9 @@ function SignUp() {
               Create an account
             </button>
           </div> */}
-          <NavLink to="http://127.0.0.1:5000/authorize/google">
+          <a href="http://127.0.0.1:5000/authorize/google">
             Sign In with google
-          </NavLink>
+          </a>
         </div>
       </div>
     </>
