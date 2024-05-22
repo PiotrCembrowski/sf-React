@@ -1,17 +1,25 @@
 import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { check_user } from "../utils/get_logged_in_user";
+import { queryClient } from "../lib/query_client";
 
 function MainNavigation() {
-  const [is_logged_in, setIs_logged_in] = useState("");
+  const [is_logged_in, setIs_logged_in] = useState(false);
 
-  // useEffect(() => {
-  //   axios.get(`http://127.0.0.1:5000/api/user_log`).then((res) => {
-  //     const persons = res.data;
-  //     setIs_logged_in(persons);
-  //   });
-  // }, [is_logged_in]);
+  const { data } = useQuery({
+    queryKey: ["nav"],
+    queryFn: check_user,
+    onSuccess: queryClient.invalidateQueries({ queryKey: ["nav"] }),
+  });
+
+  useEffect(() => {
+    setIs_logged_in(true);
+  }, [data]);
+
+  if (is_logged_in == false) console.log("not logged in");
+  if (is_logged_in == true) console.log("user is logged in");
 
   return (
     <nav>
@@ -83,9 +91,6 @@ function MainNavigation() {
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
-              onClick={() => {
-                setIs_logged_in("");
-              }}
             >
               Sign Out
             </NavLink>
