@@ -6,7 +6,7 @@ import { check_user } from "../utils/get_logged_in_user";
 import { queryClient } from "../lib/query_client";
 
 function MainNavigation() {
-  const [is_logged_in, setIs_logged_in] = useState(false);
+  const [is_logged_in, setIs_logged_in] = useState(null);
 
   const { data } = useQuery({
     queryKey: ["nav"],
@@ -15,11 +15,11 @@ function MainNavigation() {
   });
 
   useEffect(() => {
-    setIs_logged_in(true);
-  }, [data]);
-
-  if (is_logged_in == false) console.log("not logged in");
-  if (is_logged_in == true) console.log("user is logged in");
+    if (data == 401) setIs_logged_in(false);
+    if (data == 200) setIs_logged_in(true);
+    if (is_logged_in == false) console.log("not logged in");
+    if (is_logged_in == true) console.log("user is logged in");
+  }, [is_logged_in, data]);
 
   return (
     <nav>
