@@ -12,7 +12,7 @@ function FilesList(id) {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ["files"],
     queryFn: fetchFiles,
-    staleTime: 500,
+    onSuccess: queryClient.invalidateQueries({ queryKey: ["lists"] }),
   });
 
   const { mutate } = useMutation({

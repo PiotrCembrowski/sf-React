@@ -1,21 +1,21 @@
-export async function postFile(file) {
-    const response = await fetch('http://127.0.0.1:5000/files', {
-        method: 'POST',
-        body: JSON.stringify(file),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-    });
+export async function postFile(data) {
+  const response = await fetch("http://127.0.0.1:5000/files", {
+    method: "POST",
+    body: data,
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+    credentials: "include",
+  });
 
-    if (!response.ok) {
-        const error = new Error('An error occured while creating the event');
-        error.code = response.status;
-        error.info = await response.json();
-        throw error;
-    }
+  if (!response.ok) {
+    const error = new Error("An error occured while creating the event");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
 
-    const { files } = await response.json();
-
-    return files;
+  const { files } = await response.json();
+  console.log(files);
+  return files;
 }

@@ -16,6 +16,7 @@ import {
 import ErrorBlock from "../components/ui/ErrorBlock";
 import FileUpload from "../components/form/FileUpload";
 import { queryClient } from "../lib/query_client";
+import axios from "axios";
 
 function NewFile({ pickedListId }) {
   const [FileNameStore, setFileNameStore] = useState("");
@@ -53,13 +54,18 @@ function NewFile({ pickedListId }) {
   };
 
   const addFileHandler = async () => {
-    await redeemFile(attachment);
-
-    await redeemData({
+    let obj = {
       name: FileNameStore,
       description: FileDescriptionStore,
       list_id: pickedListId.id,
-    });
+    };
+
+    const form = new FormData();
+    form.append("data", obj);
+    form.append("file", attachment);
+
+    // await redeemFile(attachment);
+    await redeemData(form);
   };
 
   content = (
