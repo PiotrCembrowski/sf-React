@@ -3,7 +3,7 @@ export async function postFile(data) {
     method: "POST",
     body: data,
     headers: {
-      "content-type": "multipart/form-data",
+      "content-type": "application/json",
     },
     credentials: "include",
   });
