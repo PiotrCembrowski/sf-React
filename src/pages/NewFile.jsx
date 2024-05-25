@@ -16,11 +16,13 @@ import {
 import ErrorBlock from "../components/ui/ErrorBlock";
 import FileUpload from "../components/form/FileUpload";
 import { queryClient } from "../lib/query_client";
+import { useNavigate } from "react-router-dom";
 
 function NewFile({ pickedListId }) {
   const [FileNameStore, setFileNameStore] = useState("");
   const [FileDescriptionStore, setFileDescriptionStore] = useState("");
   const [attachment, setAttachment] = useState("");
+  const navigate = useNavigate();
 
   let content;
 
@@ -63,6 +65,7 @@ function NewFile({ pickedListId }) {
     const object = JSON.stringify(obj);
     console.log(object);
     await redeemData(object);
+    navigate(0);
   };
 
   content = (
