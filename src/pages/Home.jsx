@@ -14,6 +14,23 @@ function Home() {
           simple, intuitive file sharing at your fingertips.
         </p>
       </div>
+      <div>
+        <ul>
+          <li>
+            <b>User-Friendly Interface</b>: Share files with just a few clicks.
+            No tech skills required.
+          </li>
+          <li>Safe and easy signing up.</li>
+          <li>
+            <b>Lightning Fast</b>: Experience rapid uploads and downloads,
+            regardless of file size.
+          </li>
+          <li>
+            <b>Cross-Platform</b>: Compatible with all devices and operating
+            systems. Share files anytime, anywhere.
+          </li>
+        </ul>
+      </div>
     </>
   );
 }
