@@ -1,5 +1,7 @@
+import { address } from "./../utils/site_url";
+
 export async function postFile(data) {
-  const response = await fetch("http://127.0.0.1:5000/files", {
+  const response = await fetch(`${address}files`, {
     method: "POST",
     body: data,
     headers: {

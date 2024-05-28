@@ -1,7 +1,9 @@
+import { address } from "./../utils/site_url";
+
 export async function fetchView(data) {
   console.log(data);
   const [id, files] = data;
-  const response = await fetch(`http://127.0.0.1:5000/views/${id}`, {
+  const response = await fetch(`${address}views/${id}`, {
     method: "POST",
     body: JSON.stringify(files),
     headers: {

@@ -10,6 +10,7 @@ import Error from "./pages/Error";
 import AdminLayouts from "./layouts/AdminLayouts";
 import { queryClient } from "./lib/query_client";
 import SharePage from "./pages/SharePage";
+import { address } from "./utils/site_url";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
         path: "",
         element: <Admin />,
         loader: async () => {
-          const response = await fetch("http://127.0.0.1:5000/fileslists", {
+          const response = await fetch(`${address}fileslists`, {
             method: "GET",
             mode: "cors",
             credentials: "include",

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { check_user } from "../utils/get_logged_in_user";
 import { queryClient } from "../lib/query_client";
+import { address } from "./../utils/site_url";
 
 function MainNavigation() {
   const [is_logged_in, setIs_logged_in] = useState(null);
@@ -87,7 +88,7 @@ function MainNavigation() {
         {is_logged_in && (
           <li>
             <a
-              href="http://127.0.0.1:5000/logout"
+              href={`${address}logout`}
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }

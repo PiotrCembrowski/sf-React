@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { address } from "./../utils/site_url";
 
 function SignUp() {
   return (
@@ -80,9 +80,7 @@ function SignUp() {
               Create an account
             </button>
           </div> */}
-          <a href="http://127.0.0.1:5000/authorize/google">
-            Sign In with google
-          </a>
+          <a href={`${address}authorize/google`}>Sign In with google</a>
         </div>
       </div>
     </>

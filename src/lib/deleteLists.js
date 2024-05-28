@@ -1,5 +1,7 @@
+import { address } from "./../utils/site_url";
+
 export async function deleteLists(id) {
-  const response = await fetch(`http://127.0.0.1:5000/fileslists/${id}`, {
+  const response = await fetch(`${address}fileslists/${id}`, {
     method: "DELETE",
     credentials: "include",
   })
