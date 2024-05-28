@@ -110,7 +110,9 @@ function View() {
     <div className="my-2">
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline">Share</Button>
+          <Button variant="outline" className="mt-12">
+            Share
+          </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
