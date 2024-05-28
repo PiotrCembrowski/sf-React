@@ -14,18 +14,20 @@ function Home() {
           simple, intuitive file sharing at your fingertips.
         </p>
       </div>
-      <div>
-        <ul>
-          <li>
+      <div className="w-11/12 md:w-3/4 lg:w-2/5 mx-auto mt-12">
+        <ul className="list-disc">
+          <li className="my-4">
             <b>User-Friendly Interface</b>: Share files with just a few clicks.
             No tech skills required.
           </li>
-          <li>Safe and easy signing up.</li>
-          <li>
+          <li className="my-4">
+            <b>Safe and easy</b> signing up.
+          </li>
+          <li className="my-4">
             <b>Lightning Fast</b>: Experience rapid uploads and downloads,
             regardless of file size.
           </li>
-          <li>
+          <li className="my-4">
             <b>Cross-Platform</b>: Compatible with all devices and operating
             systems. Share files anytime, anywhere.
           </li>

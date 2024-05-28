@@ -61,7 +61,7 @@ function MainNavigation() {
             </NavLink>
           </li>
         )}
-        {!is_logged_in && (
+        {/* {!is_logged_in && (
           <li>
             <NavLink
               to="signup"
@@ -72,7 +72,7 @@ function MainNavigation() {
               Sign Up
             </NavLink>
           </li>
-        )}
+        )} */}
         {is_logged_in && (
           <li>
             <NavLink
