@@ -1,17 +1,35 @@
 nav {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1440px;
-    margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 2rem auto;
 }
 
 nav ul {
-    display: flex;
-    justify-content: space-around;
-    flex-basis: 15%;
+  display: flex;
+  justify-content: space-around;
+  flex-basis: 15%;
 }
 
 .active {
-    color: rgb(27, 63, 223);
-    font-weight: bold;
+  color: rgb(27, 63, 223);
+  font-weight: bold;
+}
+
+@media (max-width: 977px) {
+  nav ul {
+    flex-basis: 25%;
+  }
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-basis: 35%;
+  }
+}
+
+@media (max-width: 640px) {
+  nav ul {
+    flex-basis: 45%;
+  }
 }
