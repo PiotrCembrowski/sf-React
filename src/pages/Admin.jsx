@@ -75,7 +75,7 @@ function Admin() {
       <div className={`${classes.container} grid grid-flow-col border-black`}>
         <div>
           <ul>
-            <h3 className="text-bold">Lists:</h3>
+            <h3 className="font-semibold text-xl">Lists:</h3>
             {data &&
               data.map((list) => {
                 return (
@@ -104,7 +104,7 @@ function Admin() {
               })}
           </ul>
           <AlertDialog>
-            <AlertDialogTrigger>Add list</AlertDialogTrigger>
+            <AlertDialogTrigger className="mt-2">Add list</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Set name of the list</AlertDialogTitle>

@@ -59,8 +59,6 @@ function FilesList(id) {
                 <br />
                 <p>{file.description}</p>
                 <br />
-                <p>{file.url}</p>
-                <br />
                 <button
                   className="border bg-red-700 text-white px-2 py-1 rounded-xl"
                   onClick={() => deleteFileHandler(file.id)}
