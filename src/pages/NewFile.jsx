@@ -40,6 +40,9 @@ function NewFile({ pickedListId }) {
 
   const { mutate: redeemFile } = useMutation({
     mutationFn: uploadFile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["files"] });
+    },
   });
 
   const storeFileNameHandler = (event) => {
@@ -65,7 +68,7 @@ function NewFile({ pickedListId }) {
     const object = JSON.stringify(obj);
     console.log(object);
     await redeemData(object);
-    navigate(0);
+    // navigate(0);
   };
 
   content = (
