@@ -67,7 +67,9 @@ function NewFile({ pickedListId }) {
 
     const object = JSON.stringify(obj);
     console.log(object);
-    await redeemData(object);
+    setTimeout(() => {
+      redeemData(object);
+    }, 200);
     // navigate(0);
   };
 
