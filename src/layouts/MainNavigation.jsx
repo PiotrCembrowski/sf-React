@@ -38,12 +38,12 @@ function MainNavigation() {
         </li>
         <li>
           <NavLink
-            to="pricing"
+            to="Feedback"
             className={({ isActive }) =>
               isActive ? classes.active : undefined
             }
           >
-            Pricing
+            Feedback
           </NavLink>
         </li>
         <li></li>

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
-import Pricing from "./pages/Pricing";
+import Feedback from "./pages/Feedback";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Admin from "./pages/Admin";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "signin", element: <SignIn /> },
       { path: "signup", element: <SignUp /> },
-      { path: "pricing", element: <Pricing /> },
+      { path: "Feedback", element: <Feedback /> },
     ],
   },
   {
