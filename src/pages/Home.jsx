@@ -1,8 +1,8 @@
 function Home() {
   return (
-    <div className="w-1/2">
-      <h1 className="text-5xl font-bold mt-32 mb-2 text-gray-600">
-        Sharefiles
+    <div className="w-1/2 pt-14">
+      <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+        Share Your Files with Our Easy Solution
       </h1>
       <h3 className="text-2xl text-gray-500">
         - Effortless File Sharing for Everyone

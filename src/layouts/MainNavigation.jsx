@@ -53,9 +53,9 @@ function MainNavigation() {
           <li>
             <NavLink
               to="signin"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
+              className={`border border-black py-2 px-5 rounded-xl hover:bg-black hover:text-white transition ${({
+                isActive,
+              }) => (isActive ? classes.active : undefined)}}`}
             >
               Sign In
             </NavLink>

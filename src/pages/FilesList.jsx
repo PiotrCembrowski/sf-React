@@ -7,6 +7,12 @@ import View from "./../components/ui/View";
 import { deleteFiles } from "./../lib/deleteFiles";
 import { queryClient } from "./../lib/query_client";
 import pdfIcon from "./../assets/pdf.png";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+} from "./../components/ui/table";
 
 function FilesList(id) {
   const { data, isPending, isError, error, refetch } = useQuery({
@@ -70,6 +76,18 @@ function FilesList(id) {
             );
         })}
       </ul>
+    );
+  }
+
+  if (data) {
+    content = (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>dsadsa</TableHead>
+          </TableRow>
+        </TableHeader>
+      </Table>
     );
   }
 
